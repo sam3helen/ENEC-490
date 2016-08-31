@@ -1,0 +1,62 @@
+Function:
+
+
+function [ matrix ] = annual_profile( v )
+
+
+number_of_years = length(v)/12;
+
+matrix=zeros(number_of_years, 12);
+
+for i=1:number_of_years
+    for j=1:12
+        
+        matrix(i, j)= v(((i-1)*12)+j);
+           
+    end
+    
+end
+
+
+matrix=matrix(8:number_of_years,:);
+
+
+end
+
+
+
+
+
+
+Rest of Tasks:
+
+
+filename= 'N9132US3m.xls'
+
+data= xlsread(filename)
+
+years=length(data)/12;
+
+monthly_gas=annual_profile(data);
+
+
+x=1:12;
+y1=monthly_gas(1,:);
+y2=monthly_gas(2,:);
+y3=monthly_gas(3,:);
+y4=monthly_gas(4,:);
+y5=monthly_gas(5,:);
+y6=monthly_gas(6,:);
+y7=monthly_gas(7,:);
+y8=monthly_gas(8,:);
+
+
+
+plot(x, y1, x, y2, x, y3, x, y4, x, y5, x, y6, x, y7, x, y8)
+legend('2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015')
+title('Monthly Gas Prices')
+xlabel('Months: January-December')
+ylabel('price')
+
+
+boxplot(monthly_gas)
