@@ -38,36 +38,7 @@ peak_energy_vector = peakenergy(data);
 
 
 
-preprocessor.m:
 
-function [ processed_data ] = preprocessor( gobbled_data )
-
-
-%identifies missing and nonsensical data
-
-%missing data - 0
-%negative data - -999
-
-%output will be the index of missing data points in vector
-%missing = find(gobbled_data == 0);
-
-for i= 1:length(gobbled_data)
-    
-    if gobbled_data(i) < 1
-        
-        gobbled_data(i) = mean([gobbled_data(i+1) gobbled_data(i-1)]);
-        
-    elseif gobbled_data(i) > 200000
-        
-        gobbled_data(i) = mean([gobbled_data(i+1) gobbled_data(i-1)]);
-   
-    end
-    
-end
-
-processed_data = gobbled_data;
-
-end
 
 
 
