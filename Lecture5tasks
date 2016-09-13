@@ -21,7 +21,7 @@ qqplot(new_data);
 histogram(log(new_data));
 
 qqplot(log(new_data));
-num_days = length(newdata)/24;
+%num_days = length(newdata)/24;
 %index_of_problempoint= find(isnan(new_data))
 %index_of_problempoint/24;
 
@@ -31,9 +31,12 @@ num_days = length(newdata)/24;
 histogram(new_data);
 
 peak_energy_vector = peakenergy(data);
-std(new_data);
+%std(new_data)
 
-temp_data = xlsread('tempdata-1.xlsx');
+temp_data = xlsread('edited_temdata-1.xlsx');
+temp_datareal = temp_data';
+size(temp_datareal);
+size(peak_energy_vector);
 
 scatter(peak_energy_vector, temp_data)
 
