@@ -1,0 +1,16 @@
+mat2vec.m:
+
+function [ vector ] = mat2vec( data )
+%Convert matrix (data) to vector
+
+[rows, columns] = size(data);
+
+for i=1:rows
+        
+    % when i is = 1, vector index 1-24 equals data(all of row one)
+        vector((i-1)*24+1:(i-1)*24+24) = data(i,:);
+
+        
+end
+
+end
