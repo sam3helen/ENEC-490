@@ -16,11 +16,11 @@ gobbled_data = gobbled_data';
 new_data= preprocessor(gobbled_data)
 plot(new_data)
 
-%qqplot(new_data)
+qqplot(new_data);
 
-%histogram(log(new_data))
+histogram(log(new_data));
 
-%qqplot(log(new_data))
+qqplot(log(new_data));
 num_days = length(newdata)/24;
 %index_of_problempoint= find(isnan(new_data))
 %index_of_problempoint/24;
@@ -31,6 +31,11 @@ num_days = length(newdata)/24;
 histogram(new_data);
 
 peak_energy_vector = peakenergy(data);
-%std(new_data)
+std(new_data);
+
+temp_data = xlsread('tempdata-1.xlsx');
+
+scatter(peak_energy_vector, temp_data)
+
 
 
