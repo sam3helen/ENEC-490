@@ -1,8 +1,3 @@
-data= xlsread('edited_hourly_biddata.xlsx');
-
-vector= mat2vec(data);
-
-plot(vector);
 
 gobbled_data= data_goblin(vector);
 
@@ -30,7 +25,11 @@ qqplot(log(new_data));
 
 histogram(new_data);
 
-peak_energy_vector = peakenergy(data);
+peak_energy_vector = zeros(365, 1);
+for i=1:365
+    peak_energy_vector(i) = max(data(i,:));
+end
+
 %std(new_data)
 
 temp_data = xlsread('edited_temdata-1.xlsx');
@@ -39,6 +38,5 @@ size(temp_datareal);
 size(peak_energy_vector);
 
 scatter(peak_energy_vector, temp_data)
-
 
 
