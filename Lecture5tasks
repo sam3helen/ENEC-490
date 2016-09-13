@@ -34,31 +34,3 @@ peak_energy_vector = peakenergy(data);
 %std(new_data)
 
 
-
-
-
-
-
-
-
-
-peakenergy.m:
-
-function [ vector] = peakenergy( matrix )
-
-[rows, columns] = size(matrix);
-
-max=0;
-for i = 1:columns
-    for j = 1:rows
-        if matrix(j, i)> max
-            max = matrix(j, i);
-        end
-        
-    end
-    
-    vector(i) = max;
-    
-end
-
-end
