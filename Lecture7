@@ -19,6 +19,31 @@ for i=1:length(num2012)
     
 end
 
-bar(bins);
+bar(bins, 'FaceColor', [.8 .8 .8], 'EdgeColor', [.7 .7 .7], 'LineWidth', .01);
 
-C= intersect(num2012, num2015, 'rows');
+ax=gca;
+ax.XTick=([1 11 21 31 41 51 61 71 81]);
+ax.XTickLabel = ({'1925', '1935', '1945', '1955', '1965', '1975', '1985', '1995', '2005'});
+xlabel('Year');
+ylabel('Capacity (MW)');
+set(ax, 'FontSize', 12)
+
+opyear_2012 = num2012(:, 5);
+opyear_2015 = num2015(:, 5);
+C= intersect(opyear_2012, opyear_2015);
+
+newbins = zeros(length(year),1);
+for i=1:length(C)
+    
+    %identifies the year
+    yr = C(i,5);
+    
+    %locateds the correct 'bin'
+    bin_number = find(year == yr);
+    
+    %adds capacity to correct 'bin'
+    newbins(bin_number) = newbins(bin_number) + num2015(i,4);
+    
+end
+
+bar(newbins);
