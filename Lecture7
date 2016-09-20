@@ -28,11 +28,14 @@ xlabel('Year');
 ylabel('Capacity (MW)');
 set(ax, 'FontSize', 12)
 
-opyear_2012 = num2012(:, 5);
-opyear_2015 = num2015(:, 5);
-C= intersect(opyear_2012, opyear_2015);
+hold on
 
-newbins = zeros(length(year),1);
+C = setdiff(num2012, num2015);
+
+year = 1925:1:2012;
+newbins= zeros(length(year),1);
+
+% filling in the correct year numbers for the bin numbers
 for i=1:length(C)
     
     %identifies the year
@@ -42,8 +45,9 @@ for i=1:length(C)
     bin_number = find(year == yr);
     
     %adds capacity to correct 'bin'
-    newbins(bin_number) = newbins(bin_number) + num2015(i,4);
+    newbins(bin_number) = newbins(bin_number) + C(i,4);
     
 end
 
-bar(newbins);
+
+bar(newbins)
