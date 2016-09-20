@@ -1,0 +1,24 @@
+[num2012 char2012 combined2012] = xlsread('edited_coal.xlsx', '2012_coal');
+[num2015 char2015 combined2015] = xlsread('edited_coal.xlsx', '2015_coal');
+
+
+year = 1925:1:2012;
+bins= zeros(length(year),1);
+
+% filling in the correct year numbers for the bin numbers
+for i=1:length(num2012)
+    
+    %identifies the year
+    yr = num2012(i,5);
+    
+    %locateds the correct 'bin'
+    bin_number = find(year == yr);
+    
+    %adds capacity to correct 'bin'
+    bins(bin_number) = bins(bin_number) + num2012(i,4);
+    
+end
+
+bar(bins);
+
+C= intersect(num2012, num2015, 'rows');
