@@ -1,0 +1,108 @@
+
+%read data
+data = xlsread('monthly_naturalgas.xls');
+
+
+%histogram(data);
+
+% doesn't look normal
+% so we want to trainsform it
+
+%hold on;
+transformed_data = log(data);
+histogram(transformed_data);
+
+%log looks normal
+
+monthly_matrix=annual_profile(transformed_data);
+
+%size(monthly_matrix);
+
+
+
+%another way to do it would be.....
+%monthly_matrix = reshape(transformed_data, 12, years)
+
+
+%find the mean and standard deviation of each month
+
+stats = zeros(12, 2);
+
+for i=1:12
+    stats(i,1)= mean(monthly_matrix(:,i));
+    stats(i,2) = std(monthly_matrix(:, i));
+end
+
+%which months have lowest and highest gas price averages?
+[M I] = min(stats(:,1))
+[M I] = max(stats(:,1))
+
+
+
+%lowest in april, highest in december
+
+
+%a = rand(100,1);
+
+%amend random sample of data, to reflect historical probability month with
+%highest mean (December)
+
+highest_mean_sample = 1.4545 + 0.4460*randn(1000,1);
+
+%figure; plot(highest_mean_sample);
+
+%do the same thing for lowest man (April)
+
+lowest_mean_sample= 1.3194 + 0.4961*randn(1000,1);
+
+%hold on
+%plot(lowest_mean_sample, 'y');
+
+[M I] = min(stats(:, 2))
+[M I] = max(stats(:, 2))
+
+%sample data for lowest standard dev (November)
+
+lowest_std = 1.4354 + 0.4036*randn(1000,1);
+%plot(lowest_std, 'g');
+
+%same for highest std dev (March)
+
+highest_std = 1.3364 + 0.5292*randn(1000,1);
+%plot(highest_std, 'r');
+
+
+%figure; histogram(highest_mean_sample);
+%hold on
+%histogram(lowest_mean_sample);
+%histogram(lowest_std);
+%histogram(highest_std);
+
+% convert synthetic samples back to original distributions
+
+converted_highmean = exp(highest_mean_sample);
+converted_lowmean = exp(lowest_mean_sample);
+converted_highstd = exp(highest_std);
+converted_lowstd = exp(lowest_std);
+
+figure; histogram(converted_highmean);
+hold on
+histogram(converted_lowmean);
+histogram(converted_highstd);
+histogram(converted_lowstd);
+legend('Highest Mean: December', 'Lowest Mean: April', 'Highest StdDev: March', 'Lowest StdDev: November');
+
+recent_data = data(145:length(data));
+
+figure; subplot(2, 1, 1), plot(data);
+subplot(2, 1, 2), histogram(data);
+legend('natural gas prices');
+hold on
+subplot(2, 1, 2), histogram(recent_data);
+legend('natural gas prices 1997-2008', 'natural gas prices 2009-2015');
+
+historic_pdf = fitdist(data, 'lognormal');
+recent_pdf = fitdist(recent_data, 'lognormal');
+
+pdf('Lognormal', 1:.25:20, historic_pdf);
+pdf('Lognormal', 1:.25:20, recent_pdf);
